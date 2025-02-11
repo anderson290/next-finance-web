@@ -17,6 +17,8 @@
 /.next/
 /out/
 
+/src/app/api/constants/.token.ts
+
 # production
 /build
 
