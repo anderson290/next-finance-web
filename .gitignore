@@ -22,6 +22,8 @@
 # production
 /build
 
+structure.txt
+
 # misc
 .DS_Store
 *.pem

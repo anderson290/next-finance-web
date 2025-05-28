@@ -14,48 +14,6 @@ pnpm dev
 bun dev
 ```
 
-src/
-├── app/
-│   ├── api/                          # API routes (serverless)
-│   ├── components/                   # Global components (reusable across pages)
-│   │   └── ...                      
-│   ├── types/                        # Shared TypeScript types
-│   │   └── post.ts                  
-│   ├── page.tsx                      # Home page (Server Component)
-│   ├── pageClientComponent.tsx       # Home Client Component (optional)
-│   ├── page2/                        # Folder for page 2
-│   │   ├── page.tsx                  # Server Component for page 2
-│   │   └── PostsListClient.tsx       # Client Component for page 2
-│   ├── page3/                        # Page 3
-│   │   ├── page.tsx                  # Server Component for page 3
-│   │   └── ClientComponent3.tsx      # Client Component for page 3
-│   ├── page4/                        # Page 4
-│   │   ├── page.tsx                 
-│   │   └── ClientComponent4.tsx
-│   ├── page5/                        # Page 5
-│   │   ├── page.tsx                 
-│   │   └── ClientComponent5.tsx
-│   └── layout.tsx                    # Global layout (e.g., MUI theme, header)
-├── styles/
-│   └── globals.css
-└── theme.ts
-
-API
-
-src/
-├── app/
-│   ├── api/
-│   │   ├── users/
-│   │   │   ├── route.ts      # GET, POST, PUT, DELETE to /api/users
-│   │   │   └── [id]/
-│   │   │       └── route.ts  # GET, PUT, DELETE to /api/users/:id
-│   │   ├── products/
-│   │   │   ├── route.ts      # GET, POST, etc to /api/products
-│   │   │   └── [id]/
-│   │   │       └── route.ts  # GET, PUT, DELETE to /api/products/:id
-│   │   └── ...               # Other routes API
-│   └── ...
-
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
