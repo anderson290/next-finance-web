@@ -1,71 +1,68 @@
-'use client';
+import { Box, Card, IconButton } from "@mui/material";
+import { StockChartClient } from "./StockChartClient";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend,
-  TimeScale,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import { Card, CardContent, Typography } from '@mui/material';
-import 'chartjs-adapter-date-fns';
+const TOKEN = process.env.BRAPI_TOKEN;
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  TimeScale,
-  Tooltip,
-  Legend
-);
-
-type StockPoint = {
-  date: string;
-  close: number;
+type BrapiResponse = {
+  results: {
+    historicalDataPrice: {
+      date: number;
+      close: number;
+    }[];
+    logourl: string;
+  }[];
 };
 
-type Props = {
-  data: StockPoint[];
-  title?: string;
-};
-
-export const StockChart = ({ data, title = 'Price History' }: Props) => {
-  const chartData = {
-    labels: data.map((item) => item.date),
-    datasets: [
-      {
-        label: 'Closing price (R$)',
-        data: data.map((item) => item.close),
-        borderColor: 'rgba(25, 118, 210, 1)',
-        backgroundColor: 'rgba(25, 118, 210, 0.2)',
-        tension: 0.3,
-      },
-    ],
+interface StockChartProps {
+  ticker: {
+    symbol: string;
+    name: string;
+    logoUrl: string;
   };
+}
 
-  const options: import('chart.js').ChartOptions<'line'> = {
-    responsive: true,
-    scales: {
-      x: {
-        type: 'time',
-        time: {
-          unit: 'day',
-        },
-      },
-    },
-  };
+export const StockChart = async ({ ticker }: StockChartProps) => {
+  const res = await fetch(
+    `https://brapi.dev/api/quote/${ticker.symbol}?range=1mo&interval=1d&token=${TOKEN}`,
+    { cache: "no-store" }
+  );
+
+  if (!res.ok) {
+    return <div>Failed to fetch data</div>;
+  }
+
+  const data: BrapiResponse = await res.json();
+
+  const prices = data.results[0]?.historicalDataPrice.map((item) => ({
+    date: new Date(item.date * 1000).toISOString(),
+    close: item.close,
+  }));
 
   return (
-    <Card sx={{ mt: 4 }}>
-      <CardContent>
-        <Typography variant="h6">{title}</Typography>
-        <Line data={chartData} options={options} />
-      </CardContent>
+    <Card sx={{ width: "100%", margin: "0 auto", padding: 2 }}>
+      <Box
+        mb={2}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Box>
+          <Box display="flex" alignItems="center" mb={2}>
+            <img
+              src={data.results[0]?.logourl || ticker.logoUrl}
+              alt={`${ticker.symbol} logo`}
+              style={{ width: 32, height: 32, marginRight: 8 }}
+            />
+            <span>{ticker.name}</span>
+          </Box>
+        </Box>
+        <IconButton aria-label="Open">
+          <OpenInNewIcon />
+        </IconButton>
+      </Box>
+
+      {prices ? <StockChartClient data={prices} /> : null}
     </Card>
   );
-}
+};
