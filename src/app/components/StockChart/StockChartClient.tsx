@@ -32,9 +32,30 @@ type StockPoint = {
 type Props = {
   data: StockPoint[];
   title?: string;
+  ticker: {
+    symbol: string;
+    name: string;
+    logoUrl: string;
+  };
 };
 
-export const StockChartClient = ({ data }: Props) => {
+export const StockChartClient = ({ data, ticker }: Props) => {
+
+  const handleTickerAveragePrice = (tickerSymbol: string): number => {
+
+    switch (tickerSymbol) {
+      case 'BBAS3': 
+        return 24.97; // Example price for PETR4
+      case 'BBSE3':   
+        return 39.68; // Example price for VALE3
+      case 'ITUB4':
+        return 30.38; // Example price for ITUB4
+      case 'KLBN4':
+        return 4.03; // Example price for BBDC3
+    }
+    return 100; // Example price
+  };  
+
   const chartData = {
     labels: data.map((item) => item.date),
     datasets: [
@@ -44,6 +65,14 @@ export const StockChartClient = ({ data }: Props) => {
         borderColor: 'rgba(25, 118, 210, 1)',
         backgroundColor: 'rgba(25, 118, 210, 0.2)',
         tension: 0.3,
+      },
+      {
+        label: 'Average Price',
+        data: Array(data.length).fill(handleTickerAveragePrice(ticker.symbol)),
+        borderColor: 'rgba(255, 99, 132, 0.8)',
+        pointRadius: 0,
+        fill: false,
+        type: 'line' as const,
       },
     ],
   };

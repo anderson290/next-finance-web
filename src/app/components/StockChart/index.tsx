@@ -62,7 +62,7 @@ export const StockChart = async ({ ticker }: StockChartProps) => {
         </IconButton>
       </Box>
 
-      {prices ? <StockChartClient data={prices} /> : null}
+      {prices ? <StockChartClient ticker={ticker} data={prices} /> : null}
     </Card>
   );
 };
