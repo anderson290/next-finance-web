@@ -57,7 +57,12 @@ export const StockChart = async ({ ticker }: StockChartProps) => {
             <span>{ticker.name}</span>
           </Box>
         </Box>
-        <IconButton aria-label="Open">
+        <IconButton
+          aria-label="Open"
+          href={`/finance/${ticker.symbol}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <OpenInNewIcon />
         </IconButton>
       </Box>
