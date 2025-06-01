@@ -5,6 +5,7 @@ import {
 } from "../../utils/types/finance.type";
 import { ClientFinance } from "./ClientFinance";
 import { TICKERS } from "../../utils/constants/tickers.constant";
+import { FC } from "react";
 
 async function getGithubUser(username: string): Promise<GithubUser | null> {
   const res = await fetch(`https://api.github.com/users/${username}`, {
@@ -48,12 +49,13 @@ async function TickerContainer({ ticker }: ITickerProps) {
     </div>
   );
 }
-interface PageProps {
-  params: { stock: string };
-}
-export default async function FinancePage({ params }: PageProps) {
-  const { stock } = await params; // Extract stock symbol from params
 
+
+export default async function Page(param: any) {
+  // const param = params; // Extract stock symbol from params
+  const { stock } = param;
+
+  console.log("Stock:", param.stock);
   const user: GithubUser | null = await getGithubUser("anderson290");
   const ticker = TICKERS.find((t) => t.symbol.trim().toUpperCase() === stock);
   if (!ticker) {
@@ -61,7 +63,13 @@ export default async function FinancePage({ params }: PageProps) {
   }
   return (
     <Box>
-      <Box display="flex" flexDirection="column" alignItems="center" mt={6} mb={2}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        mt={6}
+        mb={2}
+      >
         <Avatar
           src={user?.avatar_url}
           alt={user?.name || "User"}
@@ -82,7 +90,6 @@ export default async function FinancePage({ params }: PageProps) {
             </Typography>
           </>
         )}
-  
       </Box>
 
       <TickerContainer ticker={ticker} key={stock} />
