@@ -1,5 +1,6 @@
-import ThemeRegistry from "@/app/components/ThemeProvider";
-import { Header } from "./components/Header";
+import Header from "./components/Header";
+import Providers from "./providers/Providers";
+import ClientSessionProvider from "./providers/ClientSessionProvider";
 
 export default function RootLayout({
   children,
@@ -9,8 +10,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-         <Header />
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ClientSessionProvider>
+          <Header />
+          <Providers>{children}</Providers>
+        </ClientSessionProvider>
       </body>
     </html>
   );

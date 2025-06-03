@@ -1,11 +1,13 @@
 import { Avatar, Box, Chip, Typography } from "@mui/material";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { ClientFinance } from "./ClientFinance";
+import { redirect } from "next/navigation";
 import {
   GithubUser,
   IFinanceQuoteResponse,
-} from "../../utils/types/finance.type";
-import { ClientFinance } from "./ClientFinance";
-import { TICKERS } from "../../utils/constants/tickers.constant";
-import { FC } from "react";
+} from "@/app/utils/types/finance.type";
+import { TICKERS } from "@/app/utils/constants/tickers.constant";
 
 async function getGithubUser(username: string): Promise<GithubUser | null> {
   const res = await fetch(`https://api.github.com/users/${username}`, {
@@ -50,12 +52,15 @@ async function TickerContainer({ ticker }: ITickerProps) {
   );
 }
 
-
 export default async function Page(param: any) {
-  // const param = params; // Extract stock symbol from params
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/auth/signin");
+  }
+
   const { stock } = param;
 
-  console.log("Stock:", param.stock);
   const user: GithubUser | null = await getGithubUser("anderson290");
   const ticker = TICKERS.find((t) => t.symbol.trim().toUpperCase() === stock);
   if (!ticker) {

@@ -1,16 +1,18 @@
-import Link from "next/link"
+"use client";
 
-export const Header = () => {
-    return (
-        <header className="flex px2 py4">
-            <div className="flex items-center justify-between w-full mx-auto max-w-7x1">
-            <nav>
-                <ul className="flex items-center justify-center gap-2">
-                    <Link href={'/'}>Home</Link>
-                    {/* <Link href={'/finance'}>Finance</Link> */}
-                </ul>
-            </nav>
-            </div>
-        </header>
-    )
+import { signOut, useSession } from "next-auth/react";
+
+export default function Header() {
+  const { data: session } = useSession();
+
+  return (
+    <header>
+      {session ? (
+        <button onClick={() => signOut({callbackUrl: '/'})}>Sign out</button>
+      ) : (
+        <></>
+        // <button onClick={() => signIn()}>Sign in</button>
+      )}
+    </header>
+  );
 }
