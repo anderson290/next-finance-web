@@ -1,6 +1,6 @@
 import { StockChart } from "@/app/components/StockChart";
 import { TICKERS } from "@/app/utils/constants/tickers.constant";
-import { authOptions } from "@/lib/authOptions";
+import { authOptions } from "@/lib/auth";
 import { Box } from "@mui/material";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

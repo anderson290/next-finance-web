@@ -7,7 +7,7 @@ import {
   IFinanceQuoteResponse,
 } from "@/app/utils/types/finance.type";
 import { TICKERS } from "@/app/utils/constants/tickers.constant";
-import { authOptions } from "@/lib/authOptions";
+import { authOptions } from "@/lib/auth";
 
 async function getGithubUser(username: string): Promise<GithubUser | null> {
   const res = await fetch(`https://api.github.com/users/${username}`, {
