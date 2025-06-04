@@ -2,101 +2,102 @@
 
 [![Deploy](https://img.shields.io/badge/deploy-vercel-green?style=flat-square&logo=vercel)](https://next-finance-ruby.vercel.app/)
 
-**Next Finance** é uma aplicação de finanças desenvolvida em **Next.js** com foco em autenticação, UI moderna e gerenciamento de dados. Ele foi criado como projeto de portfólio e para demonstrar habilidades em frontend moderno e boas práticas de desenvolvimento.
+**Next Finance** is a finance application built with **Next.js** focused on authentication, modern UI, and data management. It was created as a portfolio project to showcase modern frontend skills and best development practices.
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Technologies Used
 
 - **Next.js 14** (App Router)
-- **React** (Server e Client Components)
-- **Material UI** para interface responsiva e estilosa
-- **NextAuth.js** para login seguro com conta do **GitHub**
-- **Vercel** para deploy rápido e escalável
+- **React** (Server and Client Components)
+- **Material UI** for a responsive and stylish interface
+- **NextAuth.js** for secure login with **GitHub**
+- **Vercel** for fast and scalable deployment
 
 ---
 
-## 🧩 Recursos Principais
+## 🧩 Main Features
 
-✅ Autenticação com **GitHub** via NextAuth  
-✅ Dashboard financeiro com listagem de transações e saldo  
-✅ Interface responsiva e acessível com **Material UI**  
-✅ Layout limpo, moderno e consistente  
-✅ Estrutura de projeto modular e fácil de manter  
+✅ Authentication with **GitHub** via NextAuth  
+✅ Financial dashboard with transaction listing and balance  
+✅ Responsive and accessible interface with **Material UI**  
+✅ Clean, modern, and consistent layout  
+✅ Modular and easy-to-maintain project structure  
 
 ---
 
-## ⚙️ Como Rodar Localmente
+## ⚙️ How to Run Locally
 
-Clone o repositório:
+Clone the repository:
 
 ```bash
 git clone https://github.com/seuusuario/next-finance.git
 cd next-finance
 ```
 
-Instale as dependências:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Crie um arquivo `.env.local` com as variáveis necessárias:
+Create a `.env.local` file with the required variables:
 
 ```env
-NEXTAUTH_SECRET=suasecret
+NEXTAUTH_SECRET=yoursecret
 NEXTAUTH_URL=http://localhost:3000
-GITHUB_ID=seu-client-id
-GITHUB_SECRET=seu-client-secret
+GITHUB_ID=your-client-id
+GITHUB_SECRET=your-client-secret
 ```
 
-Rode o projeto:
+Run the project:
 
 ```bash
 npm run dev
 ```
 
-Acesse em [http://localhost:3000](http://localhost:3000)
+Access at [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 🌍 Deploy
+## 🌍 Deployment
 
-Este projeto está hospedado na **Vercel**:
+This project is hosted on **Vercel**:
 
 🔗 [https://next-finance-ruby.vercel.app/](https://next-finance-ruby.vercel.app/)
 
 ---
 
-## 🎯 Avaliação Técnica
+## 🎯 Technical Evaluation
 
-Este projeto demonstra:
+This project demonstrates:
 
-- Uso de **NextAuth.js** para login seguro com GitHub
-- Boas práticas em **Next.js** (App Router, Server/Client Components)
-- Integração completa com **Material UI** para consistência visual
-- Código limpo e modular, fácil de entender e evoluir
-- Preparação para deploy em produção com Vercel
-
----
-
-## 📈 Melhorias Futuras
-
-- Integração de WebSockets para saldo em tempo real  
-- Dashboards visuais avançados (ex.: gráficos com Recharts)  
-- Testes automatizados para garantir qualidade e confiabilidade  
-- Integração com APIs financeiras reais (Plaid, Stripe, etc.)  
+- Use of **NextAuth.js** for secure GitHub login
+- Best practices in **Next.js** (App Router, Server/Client Components)
+- Full integration with **Material UI** for visual consistency
+- Clean and modular code, easy to understand and evolve
+- Ready for production deployment with Vercel
 
 ---
 
-## 👨‍💻 Autor
+## 📈 Future Improvements
 
-Feito por **Anderson Nunes**  
+- WebSocket integration for real-time balance  
+- Advanced visual dashboards (e.g., charts with Recharts)  
+- Automated tests to ensure quality and reliability  
+- Integration with real financial APIs (Plaid, Stripe, etc.)  
+
+---
+
+## 👨‍💻 Author
+
+Made by **Anderson Nunes**  
 🔗 [LinkedIn](https://linkedin.com/in/anderson290)  
 ✉️ [Email](anderson.dev290@gmail.com)
 
 ---
 
-## 📝 Licença
+## 📝 License
 
-Este projeto está licenciado sob a **MIT License**.
+This project is licensed under the **MIT License**.
+
