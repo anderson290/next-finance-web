@@ -6,7 +6,7 @@
 
 ---
 
-## 🚀 Technologies Used
+## 🚀 Technologies
 
 - **Next.js 14** (App Router)
 - **React** (Server and Client Components)
@@ -16,7 +16,7 @@
 
 ---
 
-## 🧩 Main Features
+## 🧩 Features
 
 ✅ Authentication with **GitHub** via NextAuth  
 ✅ Financial dashboard with transaction listing and balance  
