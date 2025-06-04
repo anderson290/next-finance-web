@@ -1,4 +1,3 @@
-
 # 💸 Next Finance
 
 [![Deploy](https://img.shields.io/badge/deploy-vercel-green?style=flat-square&logo=vercel)](https://next-finance-ruby.vercel.app/)
@@ -31,31 +30,31 @@
 
 Clone o repositório:
 
-\`\`\`bash
+```bash
 git clone https://github.com/seuusuario/next-finance.git
 cd next-finance
-\`\`\`
+```
 
 Instale as dependências:
 
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
-Crie um arquivo \`.env.local\` com as variáveis necessárias:
+Crie um arquivo `.env.local` com as variáveis necessárias:
 
-\`\`\`env
+```env
 NEXTAUTH_SECRET=suasecret
 NEXTAUTH_URL=http://localhost:3000
 GITHUB_ID=seu-client-id
 GITHUB_SECRET=seu-client-secret
-\`\`\`
+```
 
 Rode o projeto:
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 Acesse em [http://localhost:3000](http://localhost:3000)
 
@@ -92,7 +91,7 @@ Este projeto demonstra:
 
 ## 👨‍💻 Autor
 
-Feito com ❤️ por **Anderson Nunes**  
+Feito por **Anderson Nunes**  
 🔗 [LinkedIn](https://linkedin.com/in/anderson290)  
 ✉️ [Email](anderson.dev290@gmail.com)
 
