@@ -92,7 +92,7 @@ This project demonstrates:
 ## 👨‍💻 Author
 
 Made by **Anderson Nunes**  
-🔗 [LinkedIn](https://linkedin.com/in/anderson290)  
+🔗 [LinkedIn](https://linkedin.com/in/andersonnunes29)  
 ✉️ [Email](anderson.dev290@gmail.com)
 
 ---
