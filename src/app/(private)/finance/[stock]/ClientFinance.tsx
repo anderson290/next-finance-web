@@ -1,7 +1,7 @@
 "use client";
 
+import { IFinanceQuoteResponse } from "@/app/utils/types/finance.type";
 import { Avatar, Box, Chip, Typography } from "@mui/material";
-import { IFinanceQuoteResponse } from "../../utils/types/finance.type";
 
 export const ClientFinance = ({
   ticker,

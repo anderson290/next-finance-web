@@ -1,6 +1,5 @@
 import { Avatar, Box, Chip, Typography } from "@mui/material";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ClientFinance } from "./ClientFinance";
 import { redirect } from "next/navigation";
 import {
@@ -8,6 +7,7 @@ import {
   IFinanceQuoteResponse,
 } from "@/app/utils/types/finance.type";
 import { TICKERS } from "@/app/utils/constants/tickers.constant";
+import { authOptions } from "@/lib/authOptions";
 
 async function getGithubUser(username: string): Promise<GithubUser | null> {
   const res = await fetch(`https://api.github.com/users/${username}`, {
