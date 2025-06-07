@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import FinanceGraph from "../components/FinanceGraph";
+import FinanceGraph from "../components/ColumnChart";
 import GitHubSignInButton from "../components/GithubButton";
+import CandleChart from "../components/CandleChart";
 
 export default async function Home() {
   return (
@@ -32,7 +33,7 @@ export default async function Home() {
         <Typography variant="body1" color="textSecondary" maxWidth={400}>
           Track your finances simply, quickly, and securely.
         </Typography>
-      <GitHubSignInButton />
+        <GitHubSignInButton />
 
         <FinanceGraph />
 

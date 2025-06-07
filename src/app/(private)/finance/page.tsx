@@ -1,4 +1,5 @@
-import { StockChart } from "@/app/components/StockChart";
+import CandleChart from "@/app/components/CandleChart";
+import { StockChart } from "@/app/components/LineChart";
 import { TICKERS } from "@/app/utils/constants/tickers.constant";
 import { authOptions } from "@/lib/auth";
 import { Box } from "@mui/material";
@@ -6,11 +7,11 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
-  if (!session) {
-    redirect("/auth/signin");
-  }
+  // if (!session) {
+  //   redirect("/auth/signin");
+  // }
 
   return (
     <Box
@@ -22,7 +23,11 @@ export default async function Page() {
       }}
     >
       {TICKERS.map((ticker) => (
-        <StockChart key={ticker.symbol} ticker={ticker} />
+        // <StockChart key={ticker.symbol} ticker={ticker} />
+        <CandleChart
+          key={ticker.symbol}
+          ticker={ticker}
+          />
       ))}
     </Box>
   );

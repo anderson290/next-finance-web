@@ -14,7 +14,7 @@ type BrapiResponse = {
   }[];
 };
 
-interface StockChartProps {
+export interface IStockChartProps {
   ticker: {
     symbol: string;
     name: string;
@@ -22,7 +22,7 @@ interface StockChartProps {
   };
 }
 
-export const StockChart = async ({ ticker }: StockChartProps) => {
+export const StockChart = async ({ ticker }: IStockChartProps) => {
   const res = await fetch(
     `https://brapi.dev/api/quote/${ticker.symbol}?range=1mo&interval=1d&token=${TOKEN}`,
     { cache: "no-store" }
