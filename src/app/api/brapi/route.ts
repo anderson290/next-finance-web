@@ -1,14 +1,14 @@
 // Exemplo básico de API route
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const ticker = request.nextUrl.searchParams.get("ticker") || "";
+  const TOKEN = process.env.BRAPI_TOKEN;
 
-   const TOKEN = process.env.BRAPI_TOKEN;
+  const res = await fetch(
+    `https://brapi.dev/api/quote/${ticker}?range=1mo&interval=1d&token=${TOKEN}`
+  );
 
-  const res = await fetch(`https://brapi.dev/api/quote/PETR4?range=1mo&interval=1d&token=${TOKEN}`);
-
-  console.log(res)
   const data = await res.json();
-  // Ajuste aqui para retornar só os dados que quer
   return NextResponse.json(data);
 }
