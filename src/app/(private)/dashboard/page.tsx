@@ -1,4 +1,3 @@
-import CandleChart from "@/app/components/CandleChart";
 import BrapiLineChart from "@/app/components/LineChart";
 import { TICKERS } from "@/app/utils/constants/tickers.constant";
 import { authOptions } from "@/lib/auth";
@@ -7,11 +6,11 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
-  // const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
-  // if (!session) {
-  //   redirect("/auth/signin");
-  // }
+  if (!session) {
+    redirect("/auth/signin");
+  }
 
   return (
     <Box
