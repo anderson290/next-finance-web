@@ -132,7 +132,7 @@ export default function PrivateLayout({
             </Typography>
 
             <Box sx={{ flexGrow: 1 }} />
-            <IconButton color="inherit" onClick={() => signOut()}>
+            <IconButton color="inherit" onClick={() => signOut({ callbackUrl: "/" })}>
               <SignOut size={24} />
             </IconButton>
           </Toolbar>
