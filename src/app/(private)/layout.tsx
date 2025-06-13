@@ -34,12 +34,11 @@ export default function PrivateLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const menuItems = [
     { text: "Dashboard", href: "/dashboard", icon: <ChartLine size={24} /> },
     { text: "Github", href: "/github", icon: <GithubLogo size={24} /> },
-    // adicione novos itens aqui
   ];
 
   return (
