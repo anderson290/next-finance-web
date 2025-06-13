@@ -6,17 +6,8 @@ import {
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import FinanceGraph from "../components/ColumnChart";
 import GitHubSignInButton from "../components/GithubButton";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-
-  if (session) {
-    redirect("/dashboard");
-  }
-
   return (
     <main>
       <Box
