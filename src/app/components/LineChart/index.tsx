@@ -88,7 +88,7 @@ export default function BrapiLineChart({ symbol = "PETR4" }) {
   useEffect(() => {
     async function fetchPrices() {
       try {
-        const res = await fetch(`/api/quote?symbol=${symbol}`);
+        const res = await fetch(`/api/brapi?ticker=${symbol}`);
         const json = await res.json();
         const raw = json.results?.[0]?.historicalDataPrice;
         if (!raw) return;
