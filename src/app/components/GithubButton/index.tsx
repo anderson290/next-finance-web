@@ -9,7 +9,7 @@ export default function GitHubSignInButton() {
     <Button
       variant="contained"
       startIcon={<GitHubIcon />}
-      onClick={() => signIn("github", { callbackUrl: "/finance" })}
+      onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
       sx={{
         backgroundColor: "#24292e",
         color: "#fff",

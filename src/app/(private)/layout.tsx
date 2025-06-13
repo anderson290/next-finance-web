@@ -1,4 +1,3 @@
-// app/private/layout.tsx
 "use client";
 
 import * as React from "react";
@@ -13,16 +12,33 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import IconButton from "@mui/material/IconButton";
 import InboxIcon from "@mui/icons-material/Inbox";
+// import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import {
+  List as ListIcon,
+  Heart,
+  Cube,
+  ChartLine,
+  CaretLeft,
+  GithubLogo
+} from "phosphor-react";
 
 const drawerWidth = 240;
+const miniDrawerWidth = 64;
 
-export default function PrivateLayout({ children }: { children: React.ReactNode }) {
+export default function PrivateLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
+  const [open, setOpen] = React.useState(true);
 
   const menuItems = [
-    { text: "Dashboard", href: "/private/dashboard", icon: <InboxIcon /> },
-    { text: "Steam", href: "/private/steam", icon: <InboxIcon /> },
+    { text: "Dashboard", href: "/dashboard", icon: <ChartLine size={24} /> },
+    { text: "Github", href: "/github", icon: <GithubLogo size={24} /> },
     // adicione novos itens aqui
   ];
 
@@ -30,18 +46,67 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
     <Box sx={{ display: "flex" }}>
       <Drawer
         variant="permanent"
+        open={open}
         sx={{
-          width: drawerWidth,
-          "& .MuiDrawer-paper": { width: drawerWidth, boxSizing: "border-box" },
+          width: open ? drawerWidth : miniDrawerWidth,
+          flexShrink: 0,
+          whiteSpace: "nowrap",
+          boxSizing: "border-box",
+          transition: (theme) =>
+            theme.transitions.create("width", {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+          "& .MuiDrawer-paper": {
+            width: open ? drawerWidth : miniDrawerWidth,
+            transition: (theme) =>
+              theme.transitions.create("width", {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
+            overflowX: "hidden",
+          },
         }}
       >
-        <Toolbar />
+        <Toolbar
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: open ? "flex-end" : "center",
+            px: [1],
+          }}
+        >
+          <IconButton onClick={() => setOpen(!open)}>
+            {open ? <CaretLeft size={24} /> : <ListIcon size={24} />}
+          </IconButton>
+        </Toolbar>
         <List>
           {menuItems.map(({ text, href, icon }) => (
-            <Link key={href} href={href} passHref>
-              <ListItemButton component="a" selected={pathname === href}>
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={text} />
+            <Link
+              key={href}
+              href={href}
+              passHref
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <ListItemButton
+                component="a"
+                selected={pathname === href}
+                sx={{
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  height: "3rem"
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  {icon}
+                </ListItemIcon>
+                {open && <ListItemText primary={text} />}
               </ListItemButton>
             </Link>
           ))}
@@ -52,19 +117,23 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
         <AppBar
           position="fixed"
           sx={{
-            width: `calc(100% - ${drawerWidth}px)`,
-            ml: `${drawerWidth}px`,
+            width: `calc(100% - ${open ? drawerWidth : miniDrawerWidth}px)`,
+            ml: `${open ? drawerWidth : miniDrawerWidth}px`,
+            transition: (theme) =>
+              theme.transitions.create(["width", "margin"], {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
           }}
         >
           <Toolbar>
             <Typography variant="h6" noWrap>
-              Seu App
+              Next Finance
             </Typography>
           </Toolbar>
         </AppBar>
 
         <Toolbar />
-
         <Box sx={{ p: 3 }}>{children}</Box>
       </Box>
     </Box>

@@ -59,7 +59,7 @@ export interface IStockChartProps {
 //         </Box>
 //         <IconButton
 //           aria-label="Open"
-//           href={`/finance/${ticker.symbol}`}
+//           href={`/dashboard/${ticker.symbol}`}
 //           target="_blank"
 //           rel="noopener noreferrer"
 //         >
