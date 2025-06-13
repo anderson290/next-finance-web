@@ -18,12 +18,12 @@ import InboxIcon from "@mui/icons-material/Inbox";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
   List as ListIcon,
-  Heart,
-  Cube,
   ChartLine,
   CaretLeft,
-  GithubLogo
+  GithubLogo,
+  SignOut
 } from "phosphor-react";
+import { signOut } from "next-auth/react";
 
 const drawerWidth = 240;
 const miniDrawerWidth = 64;
@@ -130,6 +130,11 @@ export default function PrivateLayout({
             <Typography variant="h6" noWrap>
               Next Finance
             </Typography>
+
+            <Box sx={{ flexGrow: 1 }} />
+            <IconButton color="inherit" onClick={() => signOut()}>
+              <SignOut size={24} />
+            </IconButton>
           </Toolbar>
         </AppBar>
 
