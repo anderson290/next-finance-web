@@ -6,23 +6,23 @@
 ![Vercel](https://img.shields.io/badge/Deployed-Vercel-black?logo=vercel)
 ![MIT License](https://img.shields.io/badge/license-MIT-green)
 
-> Plataforma financeira moderna construída com Next.js, focada em autenticação, UX fluida e visualização de dados.
+> A modern financial platform built with Next.js, focused on authentication, smooth UX, and data visualization.
 
 ---
 
-## 🚀 Tecnologias
+## 🚀 Technologies
 
 - [Next.js](https://nextjs.org/) (App Router + SSR)
-- [React](https://reactjs.org/) com [TypeScript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/) with [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- Autenticação moderna (ex: NextAuth, Clerk)
+- Modern authentication (e.g., NextAuth, Clerk)
 - ESLint + Prettier
-- Deploy com [Vercel](https://vercel.com/)
-- (Opcional) ORM (Prisma, Drizzle), Hono API, Jest/Vitest
+- Deployment with [Vercel](https://vercel.com/)
+- (Optional) ORM (Prisma, Drizzle), Hono API, Jest/Vitest
 
 ---
 
-## 📦 Instalação
+## 📦 Installation
 
 ```bash
 git clone https://github.com/anderson290/next-finance-web
@@ -32,58 +32,58 @@ npm install
 
 ---
 
-## 🧪 Scripts Disponíveis
+## 🧪 Available Scripts
 
-| Comando             | Descrição                           |
-|---------------------|-------------------------------------|
-| `npm run dev`       | Inicia servidor de desenvolvimento  |
-| `npm run build`     | Cria build para produção            |
-| `npm run start`     | Roda aplicação em produção          |
-| `npm run lint`      | Executa análise de código com ESLint|
-| `npm run format`    | Formata o código com Prettier       |
-| `npm test`          | Executa testes (se configurado)     |
+| Command             | Description                          |
+|---------------------|--------------------------------------|
+| `npm run dev`       | Starts development server            |
+| `npm run build`     | Creates production build             |
+| `npm run start`     | Runs the app in production mode      |
+| `npm run lint`      | Runs ESLint code analysis            |
+| `npm run format`    | Formats code with Prettier           |
+| `npm test`          | Runs tests (if configured)           |
 
 ---
 
-## 🔐 Variáveis de ambiente
+## 🔐 Environment Variables
 
-Crie o arquivo `.env.local` com base no exemplo:
+Create a `.env.local` file based on the example:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Configure as chaves de API, variáveis de ambiente de banco de dados, etc.
+Set up API keys, database environment variables, etc.
 
 ---
 
-## 📁 Estrutura de Pastas (sugestão)
+## 📁 Folder Structure (suggestion)
 
 ```
 📦 next-finance-web
-├── app/ ou pages/        # Rotas da aplicação
-├── components/           # Componentes reutilizáveis
-├── lib/ ou utils/        # Funções auxiliares
-├── styles/               # Estilos e configuração do Tailwind
-├── public/               # Arquivos estáticos
-├── prisma/ ou db/        # ORM e acesso ao banco (se aplicável)
+├── app/ or pages/        # Application routes
+├── components/           # Reusable components
+├── lib/ or utils/        # Helper functions
+├── styles/               # Tailwind styles and config
+├── public/               # Static files
+├── prisma/ or db/        # ORM and database access (if any)
 ```
 
 ---
 
-## 📡 Deploy
+## 📡 Deployment
 
-Este projeto está preparado para deploy contínuo via [Vercel](https://vercel.com/). Após conectar o repositório, qualquer `push` na `main` ou `production` gera um novo deploy.
-
----
-
-## 📄 Licença
-
-Distribuído sob a licença [MIT](LICENSE).
+This project is ready for continuous deployment via [Vercel](https://vercel.com/). After connecting the repository, any push to `main` or `production` will trigger a new deployment.
 
 ---
 
-## 👤 Autor
+## 📄 License
 
-Feito com ❤️ por [Anderson do Carmo Nunes](https://www.linkedin.com/in/andersonnunes29/)  
+Distributed under the [MIT](LICENSE) license.
+
+---
+
+## 👤 Author
+
+Made with ❤️ by [Anderson do Carmo Nunes](https://www.linkedin.com/in/andersonnunes29/)  
 📫 anderson.nunes290@outlook.com
