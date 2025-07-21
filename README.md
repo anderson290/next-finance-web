@@ -1,103 +1,89 @@
-# 💸 Next Finance
+# 💸 next-finance-web
 
-[![Deploy](https://img.shields.io/badge/deploy-vercel-green?style=flat-square&logo=vercel)](https://next-finance-ruby.vercel.app/)
+![Next.js](https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-38B2AC?logo=tailwindcss&logoColor=white)
+![Vercel](https://img.shields.io/badge/Deployed-Vercel-black?logo=vercel)
+![MIT License](https://img.shields.io/badge/license-MIT-green)
 
-**Next Finance** is a finance application built with **Next.js** focused on authentication, modern UI, and data management. It was created as a portfolio project to showcase modern frontend skills and best development practices.
-
----
-
-## 🚀 Technologies
-
-- **Next.js 14** (App Router)
-- **React** (Server and Client Components)
-- **Material UI** for a responsive and stylish interface
-- **NextAuth.js** for secure login with **GitHub**
-- **Vercel** for fast and scalable deployment
+> Plataforma financeira moderna construída com Next.js, focada em autenticação, UX fluida e visualização de dados.
 
 ---
 
-## 🧩 Features
+## 🚀 Tecnologias
 
-✅ Authentication with **GitHub** via NextAuth  
-✅ Financial dashboard with transaction listing and balance  
-✅ Responsive and accessible interface with **Material UI**  
-✅ Clean, modern, and consistent layout  
-✅ Modular and easy-to-maintain project structure  
+- [Next.js](https://nextjs.org/) (App Router + SSR)
+- [React](https://reactjs.org/) com [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- Autenticação moderna (ex: NextAuth, Clerk)
+- ESLint + Prettier
+- Deploy com [Vercel](https://vercel.com/)
+- (Opcional) ORM (Prisma, Drizzle), Hono API, Jest/Vitest
 
 ---
 
-## ⚙️ How to Run Locally
-
-Clone the repository:
+## 📦 Instalação
 
 ```bash
-git clone https://github.com/seuusuario/next-finance.git
-cd next-finance
-```
-
-Install dependencies:
-
-```bash
+git clone https://github.com/anderson290/next-finance-web
+cd next-finance-web
 npm install
 ```
 
-Create a `.env.local` file with the required variables:
+---
 
-```env
-NEXTAUTH_SECRET=yoursecret
-NEXTAUTH_URL=http://localhost:3000
-GITHUB_ID=your-client-id
-GITHUB_SECRET=your-client-secret
-```
+## 🧪 Scripts Disponíveis
 
-Run the project:
+| Comando             | Descrição                           |
+|---------------------|-------------------------------------|
+| `npm run dev`       | Inicia servidor de desenvolvimento  |
+| `npm run build`     | Cria build para produção            |
+| `npm run start`     | Roda aplicação em produção          |
+| `npm run lint`      | Executa análise de código com ESLint|
+| `npm run format`    | Formata o código com Prettier       |
+| `npm test`          | Executa testes (se configurado)     |
+
+---
+
+## 🔐 Variáveis de ambiente
+
+Crie o arquivo `.env.local` com base no exemplo:
 
 ```bash
-npm run dev
+cp .env.example .env.local
 ```
 
-Access at [http://localhost:3000](http://localhost:3000)
+Configure as chaves de API, variáveis de ambiente de banco de dados, etc.
 
 ---
 
-## 🌍 Deployment
+## 📁 Estrutura de Pastas (sugestão)
 
-This project is hosted on **Vercel**:
-
-🔗 [https://next-finance-ruby.vercel.app/](https://next-finance-ruby.vercel.app/)
-
----
-
-## 🎯 Technical Evaluation
-
-This project demonstrates:
-
-- Use of **NextAuth.js** for secure GitHub login
-- Best practices in **Next.js** (App Router, Server/Client Components)
-- Full integration with **Material UI** for visual consistency
-- Clean and modular code, easy to understand and evolve
-- Ready for production deployment with Vercel
+```
+📦 next-finance-web
+├── app/ ou pages/        # Rotas da aplicação
+├── components/           # Componentes reutilizáveis
+├── lib/ ou utils/        # Funções auxiliares
+├── styles/               # Estilos e configuração do Tailwind
+├── public/               # Arquivos estáticos
+├── prisma/ ou db/        # ORM e acesso ao banco (se aplicável)
+```
 
 ---
 
-## 📈 Future Improvements
+## 📡 Deploy
 
-- WebSocket integration for real-time balance  
-- Advanced visual dashboards (e.g., charts with Recharts)  
-- Automated tests to ensure quality and reliability  
-- Integration with real financial APIs (Plaid, Stripe, etc.)  
+Este projeto está preparado para deploy contínuo via [Vercel](https://vercel.com/). Após conectar o repositório, qualquer `push` na `main` ou `production` gera um novo deploy.
 
 ---
 
-## 👨‍💻 Author
+## 📄 Licença
 
-Made by **Anderson Nunes**  
-🔗 [LinkedIn](https://linkedin.com/in/andersonnunes29)  
-✉️ [Email](anderson.dev290@gmail.com)
+Distribuído sob a licença [MIT](LICENSE).
 
 ---
 
-## 📝 License
+## 👤 Autor
 
-This project is licensed under the **MIT License**.
-
+Feito com ❤️ por [Anderson do Carmo Nunes](https://www.linkedin.com/in/andersonnunes29/)  
+📫 anderson.nunes290@outlook.com
