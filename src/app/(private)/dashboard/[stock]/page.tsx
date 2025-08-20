@@ -1,10 +1,9 @@
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, Typography, Breadcrumbs, Link } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { GithubUser } from "@/app/utils/types/finance.type";
 import { TICKERS } from "@/app/utils/constants/tickers.constant";
 import TickerContainer from "./TickerContainer";
-import { Breadcrumbs, Link } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 async function getGithubUser(username: string): Promise<GithubUser | null> {
   const res = await fetch(`https://api.github.com/users/${username}`, {
@@ -22,11 +21,7 @@ export async function generateMetadata() {
   };
 }
 
-type PageParams = {
-  stock: string
-}
-
-export default async function Page({ params }: { params: PageParams }) {
+export default async function Page({ params }: { params: { stock: string } }) {
   const { stock } = params;
 
   const res = await fetch(
@@ -53,7 +48,7 @@ export default async function Page({ params }: { params: PageParams }) {
   const ticker = {
     symbol: hasTicker.symbol,
     name: hasTicker.name,
-    logoUrl: apiData.logoUrl,
+    logoUrl: apiData.logoUrl || apiData.logourl || hasTicker.logoUrl,
     open: apiData.open,
     close: apiData.close,
     high: apiData.high,
@@ -75,11 +70,9 @@ export default async function Page({ params }: { params: PageParams }) {
               <Typography variant="body2">Home</Typography>
             </Box>
           </Link>
-
           <Link underline="hover" color="inherit" href="/dashboard">
             <Typography variant="body2">Dashboard</Typography>
           </Link>
-
           <Typography color="text.primary" variant="body2">
             {ticker.symbol}
           </Typography>
