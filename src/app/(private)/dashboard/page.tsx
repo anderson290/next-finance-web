@@ -6,11 +6,11 @@ import { redirect } from "next/navigation";
 import CandleChart from "../../components/CandleChart";
 
 export default async function Page() {
-  // const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
-  // if (!session) {
-  //   redirect("/auth/signin");
-  // }
+  if (!session) {
+    redirect("/auth/signin");
+  }
 
   return (
     <Box
