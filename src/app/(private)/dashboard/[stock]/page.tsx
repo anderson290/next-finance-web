@@ -22,7 +22,11 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Page({ params }: any) {
+type PageParams = {
+  stock: string
+}
+
+export default async function Page({ params }: { params: PageParams }) {
   const { stock } = params;
 
   const res = await fetch(
