@@ -21,8 +21,8 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Page({ params }: { params: { stock: string } }) {
-  const { stock } = params;
+export default async function Page({ params }: {params: Promise<{ stock: string }>}) {
+  const { stock } = await params;
 
   const res = await fetch(
     `${
