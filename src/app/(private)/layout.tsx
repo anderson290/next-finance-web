@@ -14,7 +14,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import InboxIcon from "@mui/icons-material/Inbox";
-// import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
   List as ListIcon,
@@ -88,7 +87,6 @@ export default function PrivateLayout({
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <ListItemButton
-                component="a"
                 selected={pathname === href}
                 sx={{
                   justifyContent: open ? "initial" : "center",

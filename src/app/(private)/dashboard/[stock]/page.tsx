@@ -1,17 +1,14 @@
-import { Avatar, Box, Chip, Typography } from "@mui/material";
-import { getServerSession } from "next-auth";
-import { ClientFinance } from "./ClientFinance";
-import { redirect } from "next/navigation";
-import {
-  GithubUser,
-  IFinanceQuoteResponse,
-} from "@/app/utils/types/finance.type";
+import { Avatar, Box, Typography } from "@mui/material";
+import { GithubUser } from "@/app/utils/types/finance.type";
 import { TICKERS } from "@/app/utils/constants/tickers.constant";
-import { authOptions } from "@/lib/auth";
+import TickerContainer from "./TickerContainer";
+import { Breadcrumbs, Link } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 async function getGithubUser(username: string): Promise<GithubUser | null> {
   const res = await fetch(`https://api.github.com/users/${username}`, {
-    next: { revalidate: 60 * 60 * 24 }, // revalidate every 24 hours
+    next: { revalidate: 60 * 60 * 24 },
   });
   if (!res.ok) return null;
   return res.json();
@@ -25,49 +22,66 @@ export async function generateMetadata() {
   };
 }
 
-async function getPosts(symbol: string): Promise<IFinanceQuoteResponse> {
-  const TOKEN = process.env.BRAPI_TOKEN;
+export default async function Page({ params }: { params: { stock: string } }) {
+  const { stock } = params;
 
-  const url = `https://brapi.dev/api/quote/${symbol}?range=1d&token=${
-    TOKEN || ""
-  }`;
-  const res = await fetch(url, {
-    next: { revalidate: 60 },
-  });
-
-  if (!res.ok) throw new Error("Failed to fetch data");
-
-  return res.json();
-}
-type ITickerProps = {
-  ticker: { symbol: string; name: string; logoUrl: string };
-};
-
-async function TickerContainer({ ticker }: ITickerProps) {
-  const tickerResponse: IFinanceQuoteResponse = await getPosts(ticker.symbol);
-  return (
-    <div>
-      <ClientFinance ticker={tickerResponse} />
-    </div>
+  const res = await fetch(
+    `${
+      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+    }/api/brapi?symbol=${encodeURIComponent(stock)}&detail=true`,
+    { cache: "no-store" }
   );
-}
 
-export default async function Page(param: any) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect("/auth/signin");
+  if (!res.ok) {
+    return <div>Error! Could not find that stock!</div>;
   }
 
-  const { stock } = param;
+  const apiData = await res.json();
 
   const user: GithubUser | null = await getGithubUser("anderson290");
-  const ticker = TICKERS.find((t) => t.symbol.trim().toUpperCase() === stock);
-  if (!ticker) {
+  const hasTicker = TICKERS.find(
+    (t) => t.symbol.trim().toUpperCase() === stock
+  );
+  if (!hasTicker) {
     return <Box>Stock not found</Box>;
   }
+
+  const ticker = {
+    symbol: hasTicker.symbol,
+    name: hasTicker.name,
+    logoUrl: apiData.logoUrl,
+    open: apiData.open,
+    close: apiData.close,
+    high: apiData.high,
+    low: apiData.low,
+    volume: apiData.volume,
+    recommendation: apiData.recommendation,
+  };
+
   return (
     <Box>
+      <Box mt={2} mb={2}>
+        <Breadcrumbs
+          aria-label="breadcrumb"
+          separator={<NavigateNextIcon fontSize="small" />}
+        >
+          <Link underline="hover" color="inherit" href="/">
+            <Box display="flex" alignItems="center">
+              <HomeIcon fontSize="small" sx={{ mr: 0.5 }} />
+              <Typography variant="body2">Home</Typography>
+            </Box>
+          </Link>
+
+          <Link underline="hover" color="inherit" href="/dashboard">
+            <Typography variant="body2">Dashboard</Typography>
+          </Link>
+
+          <Typography color="text.primary" variant="body2">
+            {ticker.symbol}
+          </Typography>
+        </Breadcrumbs>
+      </Box>
+
       <Box
         display="flex"
         flexDirection="column"
@@ -97,7 +111,7 @@ export default async function Page(param: any) {
         )}
       </Box>
 
-      <TickerContainer ticker={ticker} key={stock} />
+      <TickerContainer ticker={ticker} />
     </Box>
   );
 }

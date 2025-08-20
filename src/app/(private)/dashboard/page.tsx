@@ -1,16 +1,16 @@
-import BrapiLineChart from "@/app/components/LineChart";
 import { TICKERS } from "@/app/utils/constants/tickers.constant";
 import { authOptions } from "@/lib/auth";
 import { Box } from "@mui/material";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import CandleChart from "../../components/CandleChart";
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
-  if (!session) {
-    redirect("/auth/signin");
-  }
+  // if (!session) {
+  //   redirect("/auth/signin");
+  // }
 
   return (
     <Box
@@ -20,7 +20,8 @@ export default async function Page() {
       width="100%"
     >
       {TICKERS.map((ticker) => (
-          <BrapiLineChart key={ticker.symbol} symbol={ticker.symbol} />
+        <CandleChart key={ticker.symbol} ticker={ticker} />
+        // <BrapiLineChart key={ticker.symbol} symbol={ticker.symbol} />
       ))}
     </Box>
   );

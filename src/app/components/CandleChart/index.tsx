@@ -5,8 +5,11 @@ import { createChart, CandlestickData } from "lightweight-charts";
 import { IStockChartProps } from "../LineChart";
 import { Box, Card, IconButton, Typography } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { useRouter } from "next/navigation";
 
 export default function CandleChart({ ticker }: IStockChartProps) {
+
+  const router = useRouter();
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [chartInstance, setChartInstance] = useState<any>(null);
   const [candleSeries, setCandleSeries] = useState<any>(null);
@@ -61,10 +64,10 @@ export default function CandleChart({ ticker }: IStockChartProps) {
 
     const fetchCandles = async () => {
       try {
-        const res = await fetch(`/api/brapi?ticker=${ticker.symbol}`);
+        const res = await fetch(`/api/brapi?symbol=${ticker.symbol}`);
         const json = await res.json();
 
-        const historicalData = json.results[0]?.historicalDataPrice;
+        const historicalData = json?.historicalDataPrice;
 
         if (!historicalData) {
           console.error(
@@ -74,7 +77,7 @@ export default function CandleChart({ ticker }: IStockChartProps) {
         }
 
         setHistorycalDataPrice(historicalData);
-        setResult(json.results[0]);
+        setResult(json);
 
         const candles: CandlestickData[] = historicalData.map((item: any) => ({
           time: item.date,
@@ -101,7 +104,12 @@ export default function CandleChart({ ticker }: IStockChartProps) {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          width="100%"
+        >
           <Box display="flex" alignItems="center">
             <img
               src={result?.logourl || ticker.logoUrl}
@@ -111,7 +119,14 @@ export default function CandleChart({ ticker }: IStockChartProps) {
             <span>{ticker.name}</span>
           </Box>
         </Box>
-
+        <IconButton
+          aria-label="Open in dashboard"
+          onClick={() => router.push(`/dashboard/${ticker.symbol}`)}
+          size="small"
+          sx={{ color: "#DDD" }}
+        >
+          <OpenInNewIcon />
+        </IconButton>
         <Typography>Last 30 days</Typography>
       </Box>
 
