@@ -22,7 +22,7 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Page({ params }: { params: { stock: string } }) {
+export default async function Page({ params }: any) {
   const { stock } = params;
 
   const res = await fetch(
