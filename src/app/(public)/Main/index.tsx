@@ -72,7 +72,6 @@ export const Main = () => {
             justifyContent="space-between"
             gap={8}
           >
-            {/* Texto de boas-vindas */}
             <Box
               flex={2}
               sx={{
@@ -171,7 +170,6 @@ export const Main = () => {
             </Box>
           </Box>
         </Container>
-        {/* Overlay para escurecer o fundo */}
         <Box
           sx={{
             position: "absolute",
@@ -183,7 +181,6 @@ export const Main = () => {
         />
       </Box>
 
-      {/* Segunda sessão: aviso sobre heurística */}
       <Box
         sx={{
           background: darkMode
@@ -221,7 +218,6 @@ export const Main = () => {
         </Container>
       </Box>
 
-      {/* Rodapé */}
       <Box
         component="footer"
         sx={{
@@ -268,7 +264,6 @@ export const Main = () => {
             <span
               style={{ display: "flex", alignItems: "center", marginRight: 4 }}
             >
-              {/* Ícone de copyright SVG */}
               <svg
                 width="18"
                 height="18"
