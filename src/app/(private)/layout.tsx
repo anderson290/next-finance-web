@@ -17,8 +17,8 @@ import {
   List as ListIcon,
   ChartLine,
   CaretLeft,
-  GithubLogo,
-  SignOut
+  SignOut,
+  Wallet
 } from "phosphor-react";
 import { signOut } from "next-auth/react";
 
@@ -33,9 +33,10 @@ export default function PrivateLayout({
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 
+  // Make sure to import Wallet from "phosphor-react" at the top
   const menuItems = [
     { text: "Dashboard", href: "/dashboard", icon: <ChartLine size={24} /> },
-    { text: "Github", href: "/github", icon: <GithubLogo size={24} /> },
+    { text: "Wallet", href: "/wallet", icon: <Wallet size={24} /> },
   ];
 
   return (
@@ -123,7 +124,13 @@ export default function PrivateLayout({
         >
           <Toolbar>
             <Typography variant="h6" noWrap>
-              Next Finance
+              {menuItems.find((m) => m.href === pathname)?.text ??
+                (pathname === "/" 
+                  ? "Home" 
+                  : (pathname?.split("/").filter(Boolean).pop() || "Next Finance")
+                      .replace(/-/g, " ")
+                      .replace(/\b\w/g, (c) => c.toUpperCase())
+                )}
             </Typography>
 
             <Box sx={{ flexGrow: 1 }} />
