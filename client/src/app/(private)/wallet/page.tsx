@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import WalletCard from "@/app/components/WalletCard";
 import {
   Box,
   Button,
@@ -11,6 +10,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
+import WalletCard from "../../components/WalletCard";
 
 let bbCredentials: { clientId: string; clientSecret: string } | null = null;
 

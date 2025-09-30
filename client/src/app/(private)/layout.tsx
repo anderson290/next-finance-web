@@ -18,9 +18,12 @@ import {
   ChartLine,
   CaretLeft,
   SignOut,
-  Wallet
+  Wallet,
 } from "phosphor-react";
 import { signOut } from "next-auth/react";
+
+// Import the version from package.json
+import packageJson from "../../../package.json";
 
 const drawerWidth = 240;
 const miniDrawerWidth = 64;
@@ -33,7 +36,6 @@ export default function PrivateLayout({
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 
-  // Make sure to import Wallet from "phosphor-react" at the top
   const menuItems = [
     { text: "Dashboard", href: "/dashboard", icon: <ChartLine size={24} /> },
     { text: "Wallet", href: "/wallet", icon: <Wallet size={24} /> },
@@ -90,7 +92,7 @@ export default function PrivateLayout({
                 sx={{
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
-                  height: "3rem"
+                  height: "3rem",
                 }}
               >
                 <ListItemIcon
@@ -107,6 +109,23 @@ export default function PrivateLayout({
             </Link>
           ))}
         </List>
+
+        {/* Project Version Label */}
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 16,
+            left: 0,
+            width: "100%",
+            textAlign: "center",
+            fontSize: "0.8rem",
+            color: "gray",
+          }}
+        >
+          <Typography variant="caption">
+            Version: {packageJson.version}
+          </Typography>
+        </Box>
       </Drawer>
 
       <Box component="main" sx={{ flexGrow: 1 }}>
@@ -125,16 +144,21 @@ export default function PrivateLayout({
           <Toolbar>
             <Typography variant="h6" noWrap>
               {menuItems.find((m) => m.href === pathname)?.text ??
-                (pathname === "/" 
-                  ? "Home" 
-                  : (pathname?.split("/").filter(Boolean).pop() || "Next Finance")
-                      .replace(/-/g, " ")
-                      .replace(/\b\w/g, (c) => c.toUpperCase())
-                )}
+                (pathname === "/"
+                  ? "Home"
+                  : pathname
+                      ?.split("/")
+                      .filter(Boolean)
+                      .pop()
+                      ?.replace(/-/g, " ")
+                      ?.replace(/\b\w/g, (c) => c.toUpperCase()) || "Next Finance")}
             </Typography>
 
             <Box sx={{ flexGrow: 1 }} />
-            <IconButton color="inherit" onClick={() => signOut({ callbackUrl: "/" })}>
+            <IconButton
+              color="inherit"
+              onClick={() => signOut({ callbackUrl: "/" })}
+            >
               <SignOut size={24} />
             </IconButton>
           </Toolbar>
