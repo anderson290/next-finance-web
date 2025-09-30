@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import CandleChart from "../CandleChart";
-import { useStocks } from "@/app/context/StocksContext";
+import { useStocks } from "../../context/StocksContext";
 
 interface SelectedStocksProps {
   selectedStocks: string[];

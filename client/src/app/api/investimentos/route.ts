@@ -1,5 +1,5 @@
-import { getInvestimentosBB } from "@/app/services/bancoDoBrasil";
 import { NextResponse } from "next/server";
+import { getInvestimentosBB } from "../../services/bancoDoBrasil";
 
 export async function GET() {
   const token = process.env.BB_ACCESS_TOKEN!;

@@ -1,10 +1,10 @@
 "use client";
 
-import theme from "@/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import { StocksProvider } from "../context/StocksContext";
+import theme from "../../theme";
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (

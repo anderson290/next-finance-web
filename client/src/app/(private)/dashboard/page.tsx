@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Box, Button, Modal, Typography, Checkbox, TextField } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
-import SelectedStocks from "@/app/components/SelectedStocks";
+import SelectedStocks from "../../components/SelectedStocks";
 
 export default function Page() {
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);

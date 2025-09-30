@@ -11,7 +11,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useState } from "react";
-import GitHubSignInButton from "@/app/components/GithubButton";
+import GitHubSignInButton from "../../components/GithubButton";
 const BG_IMAGE =
   "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80"; // Exemplo: pessoas em escritório
 

@@ -1,9 +1,9 @@
 import { Avatar, Box, Typography, Breadcrumbs, Link } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { GithubUser } from "@/app/utils/types/finance.type";
-import { TICKERS } from "@/app/utils/constants/tickers.constant";
 import TickerContainer from "./TickerContainer";
+import { GithubUser } from "../../../utils/types/finance.type";
+import { useStocks } from "../../../context/StocksContext"; // Import the global StocksContext
 
 async function getGithubUser(username: string): Promise<GithubUser | null> {
   const res = await fetch(`https://api.github.com/users/${username}`, {
@@ -12,17 +12,36 @@ async function getGithubUser(username: string): Promise<GithubUser | null> {
   if (!res.ok) return null;
   return res.json();
 }
+  const user = await getGithubUser("anderson290");
 
 export async function generateMetadata() {
-  const user = await getGithubUser("anderson290");
   return {
     title: `Finance Page | ${user?.name ?? "Next Finance"}`,
     description: user?.bio ?? "Finance page with GitHub data and quotes.",
   };
 }
 
-export default async function Page({ params }: {params: Promise<{ stock: string }>}) {
-  const { stock } = await params;
+export default async function Page({ params }: { params: { stock: string } }) {
+  const { stock } = params;
+
+  // Access the global stocks data from the context
+  const { stocks, loading, error } = useStocks();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading stocks: {error}</div>;
+  }
+
+  const hasTicker = stocks.find(
+    (t) => t.stock.trim().toUpperCase() === stock
+  );
+
+  if (!hasTicker) {
+    return <Box>Stock not found</Box>;
+  }
 
   const res = await fetch(
     `${
@@ -37,18 +56,10 @@ export default async function Page({ params }: {params: Promise<{ stock: string 
 
   const apiData = await res.json();
 
-  const user: GithubUser | null = await getGithubUser("anderson290");
-  const hasTicker = TICKERS.find(
-    (t) => t.symbol.trim().toUpperCase() === stock
-  );
-  if (!hasTicker) {
-    return <Box>Stock not found</Box>;
-  }
-
   const ticker = {
-    symbol: hasTicker.symbol,
+    symbol: hasTicker.stock,
     name: hasTicker.name,
-    logoUrl: apiData.logoUrl || apiData.logourl || hasTicker.logoUrl,
+    logoUrl: apiData.logoUrl || apiData.logourl || hasTicker.logo,
     open: apiData.open,
     close: apiData.close,
     high: apiData.high,
