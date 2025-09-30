@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Box, Button, Modal, Typography, Checkbox, TextField, IconButton } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import SelectedStocks from "../../components/SelectedStocks";
 import AddIcon from "@mui/icons-material/Add";
+import Marquee from "react-fast-marquee";
 
 export default function Page() {
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
@@ -14,6 +15,7 @@ export default function Page() {
   const [displayedTickers, setDisplayedTickers] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
+  const [currencyData, setCurrencyData] = useState<any>([]);
 
   useEffect(() => {
     const fetchTickers = async () => {
@@ -29,7 +31,24 @@ export default function Page() {
       }
     };
 
+    const fetchCurrencies = async () => {
+      try {
+        const response = await fetch("/api/currencies");
+        const data = await response.json();
+        if (data && data.rates) {
+          const formattedData = Object.entries(data.rates).map(([key, value]) => ({
+            name: key,
+            rate: value,
+          }));
+          setCurrencyData(formattedData);
+        }
+      } catch (error) {
+        console.error("Failed to fetch currency data:", error);
+      }
+    };
+
     fetchTickers();
+    fetchCurrencies();
   }, []);
 
   const handleSearch = (query: string) => {
@@ -70,7 +89,34 @@ export default function Page() {
 
   return (
     <Box>
-      {/* Top Bar */}
+      {/* Currency Marquee */}
+      <Box mb={4}>
+        <Marquee gradient={false} speed={50}>
+          {currencyData.map((currency: any, index: any) => (
+            <Box
+              key={index}
+              display="flex"
+              alignItems="center"
+              mx={2}
+              px={3}
+              py={1}
+              borderRadius={1}
+              bgcolor="background.paper"
+              boxShadow={1}
+              border="1px solid"
+              borderColor="divider"
+            >
+              <Typography variant="body2" fontWeight={500} color="text.primary">
+                {currency.name}
+              </Typography>
+              <Typography variant="body2" fontWeight={700} color="primary.main" ml={1}>
+                {currency.rate.toFixed(2)} BRL
+              </Typography>
+            </Box>
+          ))}
+        </Marquee>
+      </Box>
+
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
         <Typography variant="h4" fontWeight={600}>
           Dashboard
