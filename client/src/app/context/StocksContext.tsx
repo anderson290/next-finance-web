@@ -1,7 +1,7 @@
 'use client'
 import React, { createContext, useState, useEffect, useContext } from "react";
 
-interface Stock {
+export interface Stock {
   change: number;
   close: number;
   logo?: string;

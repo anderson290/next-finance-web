@@ -2,19 +2,55 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { createChart, CandlestickData } from "lightweight-charts";
-import { IStockChartProps } from "../LineChart";
-import { Box, Card, IconButton, Typography } from "@mui/material";
+import { Box, Card, IconButton, MenuItem, Select, Typography } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useRouter } from "next/navigation";
+import { Stock } from "../../context/StocksContext";
 
-export default function CandleChart({ ticker }: any) {
+function calcularPrecoJustoBazin(dividendoAnual: number, dividendYieldIdeal: number = 0.06): number {
+  if (dividendYieldIdeal <= 0) {
+    throw new Error("O Dividend Yield Ideal deve ser maior que zero.");
+  }
+  return dividendoAnual / dividendYieldIdeal;
+}
 
+interface HistoricalData {
+  time: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+}
+
+interface ApiResponse {
+  chart: {
+    result: [
+      {
+        timestamp: number[];
+        indicators: {
+          quote: [
+            {
+              open: number[];
+              high: number[];
+              low: number[];
+              close: number[];
+            }
+          ];
+        };
+      }
+    ];
+  };
+}
+
+export default function CandleChart({ ticker }: { ticker: Stock }) {
   const router = useRouter();
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [chartInstance, setChartInstance] = useState<any>(null);
   const [candleSeries, setCandleSeries] = useState<any>(null);
   const [historycalDataPrice, setHistorycalDataPrice] = useState<any[]>([]);
   const [result, setResult] = useState<any>(null);
+  const [selectedMethod, setSelectedMethod] = useState<string>("none");
+
   useEffect(() => {
     if (historycalDataPrice && chartInstance) {
       chartInstance?.timeScale()?.fitContent();
@@ -60,41 +96,52 @@ export default function CandleChart({ ticker }: any) {
   }, []);
 
   useEffect(() => {
-    if (!candleSeries) return;
+    if (!candleSeries || !chartInstance) return;
 
     const fetchCandles = async () => {
       try {
-        const res = await fetch(`/api/brapi?symbol=${ticker.stock}`);
-        const json = await res.json();
+        const res = await fetch(`http://localhost:3000/api/stocks?ticker=${ticker.stock}`);
+        const json: ApiResponse = await res.json();
 
-        const historicalData = json?.historicalDataPrice;
+        const historicalData = json.chart.result[0].indicators.quote[0];
+        const timestamps = json.chart.result[0].timestamp;
 
-        if (!historicalData) {
-          console.error(
-            "Historical data not found in the internal API response"
-          );
+        if (!historicalData || !timestamps) {
+          console.error("Historical data not found in the API response");
           return;
         }
 
-        setHistorycalDataPrice(historicalData);
-        setResult(json);
-
-        const candles: CandlestickData[] = historicalData.map((item: any) => ({
-          time: item.date,
-          open: item.open,
-          high: item.high,
-          low: item.low,
-          close: item.close,
+        const candles: HistoricalData[] = timestamps.map((time, index) => ({
+          time,
+          open: historicalData.open[index],
+          high: historicalData.high[index],
+          low: historicalData.low[index],
+          close: historicalData.close[index],
         }));
 
+        setHistorycalDataPrice(candles);
         candleSeries.setData(candles);
+
+        if (selectedMethod === "bazin" && result?.dividendYield) {
+          const precoJusto = calcularPrecoJustoBazin(result.dividendYield);
+          const bazinLineSeries = chartInstance.addLineSeries({
+            color: "#00FF00",
+            lineWidth: 2,
+          });
+          const firstTime = candles[0]?.time || 0;
+          const lastTime = candles[candles.length - 1]?.time || 0;
+          bazinLineSeries.setData([
+            { time: firstTime, value: precoJusto },
+            { time: lastTime, value: precoJusto },
+          ]);
+        }
       } catch (error) {
-        console.error("Error fetching data from internal API", error);
+        console.error("Error fetching data from the API", error);
       }
     };
 
     fetchCandles();
-  }, [candleSeries]);
+  }, [candleSeries, chartInstance, selectedMethod]);
 
   return (
     <Card sx={{ width: "100%", margin: "0 auto", padding: 2 }}>
@@ -112,21 +159,32 @@ export default function CandleChart({ ticker }: any) {
         >
           <Box display="flex" alignItems="center">
             <img
-              src={result?.logourl || ticker.logoUrl}
-              alt={`${ticker.symbol} logo`}
+              src={result?.logourl || ticker.logo}
+              alt={`${ticker.stock} logo`}
               style={{ width: 32, height: 32, marginRight: 8 }}
             />
             <span>{ticker.name}</span>
           </Box>
+          <Box display="flex" alignItems="center" gap={2}>
+            <Select
+              value={selectedMethod}
+              onChange={(e) => setSelectedMethod(e.target.value)}
+              size="small"
+              sx={{ color: "#DDD", backgroundColor: "#282828" }}
+            >
+              <MenuItem value="none">Nenhum</MenuItem>
+              <MenuItem value="bazin">Preço Justo (Bazin)</MenuItem>
+            </Select>
+            <IconButton
+              aria-label="Open in dashboard"
+              onClick={() => router.push(`/dashboard/${ticker.stock}`)}
+              size="small"
+              sx={{ color: "#DDD" }}
+            >
+              <OpenInNewIcon />
+            </IconButton>
+          </Box>
         </Box>
-        {/* <IconButton
-          aria-label="Open in dashboard"
-          onClick={() => router.push(`/dashboard/${ticker.symbol}`)}
-          size="small"
-          sx={{ color: "#DDD" }}
-        >
-          <OpenInNewIcon />
-        </IconButton> */}
       </Box>
 
       <div

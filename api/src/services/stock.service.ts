@@ -1,9 +1,13 @@
 import StockRepository from '../repositories/stock.repository';
 
 class StockService {
-  static async getAll(ticker: string) {
-    // Aqui você poderia filtrar ou formatar os dados antes de devolver
-    const data = await StockRepository.findAll(ticker);
+  static async getAllStocks() {
+    const data = await StockRepository.findAllStocks();
+    return data;
+  }
+
+  static async getStockByTicker(ticker: string) {
+    const data = await StockRepository.findStockByTicker(ticker);
     return data;
   }
 }
