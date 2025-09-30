@@ -18,6 +18,7 @@ interface WalletCardProps {
   color?: string;
   isEmpty?: boolean;
   onAdd?: () => void;
+  onClick?: () => void;
 }
 
 const WalletCard: React.FC<WalletCardProps> = ({
@@ -27,12 +28,14 @@ const WalletCard: React.FC<WalletCardProps> = ({
   color,
   isEmpty = false,
   onAdd,
+  onClick
 }) => {
   const [showValue, setShowValue] = useState(false);
 
   return (
     <motion.div whileHover={{ scale: 1.03 }} style={{ margin: 16 }}>
       <Card
+        onClick={onClick}
         sx={{
           width: 360,
           height: 200,

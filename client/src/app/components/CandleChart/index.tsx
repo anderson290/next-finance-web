@@ -7,7 +7,7 @@ import { Box, Card, IconButton, Typography } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useRouter } from "next/navigation";
 
-export default function CandleChart({ ticker }: IStockChartProps) {
+export default function CandleChart({ ticker }: any) {
 
   const router = useRouter();
   const chartContainerRef = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ export default function CandleChart({ ticker }: IStockChartProps) {
 
     const fetchCandles = async () => {
       try {
-        const res = await fetch(`/api/brapi?symbol=${ticker.symbol}`);
+        const res = await fetch(`/api/brapi?symbol=${ticker.stock}`);
         const json = await res.json();
 
         const historicalData = json?.historicalDataPrice;

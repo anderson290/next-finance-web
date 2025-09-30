@@ -1,39 +1,26 @@
 {
   "name": "next-finance",
   "version": "0.0.1",
-  "private": true,
+  "author": "Anderson Nunes",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev-backend": "cd api && npm run dev",
+    "dev-frontend": "cd client && npm run dev",
+    "dev": "concurrently -c \"blue,green\" \"npm:dev-backend\" \"npm:dev-frontend\""
   },
-  "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^7.1.0",
-    "@mui/material": "^7.1.1",
-    "@mui/x-charts": "^8.5.1",
-    "axios": "^1.11.0",
-    "chart.js": "^4.4.9",
-    "chartjs-adapter-date-fns": "^3.0.0",
-    "cwait": "^1.1.2",
-    "framer-motion": "^12.16.0",
-    "lightweight-charts": "^4.2.0",
-    "next": "^15.3.3",
-    "next-auth": "^4.24.11",
-    "phosphor-react": "^1.4.1",
-    "react": "^19.1.0",
-    "react-chartjs-2": "^5.3.0",
-    "react-dom": "^19.1.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anderson290/next-finance-web.git"
   },
+  "keywords": [],
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/anderson290/next-finance-web/issues"
+  },
+  "homepage": "https://github.com/anderson290/next-finance-web#readme",
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.8",
-    "typescript": "^5.8.3"
+    "concurrently": "^9.2.1"
   }
 }
