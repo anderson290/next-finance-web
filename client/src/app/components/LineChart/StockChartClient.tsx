@@ -10,7 +10,6 @@ import {
   Legend,
   TimeScale,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
 import { Card, CardContent } from '@mui/material';
 import 'chartjs-adapter-date-fns';
 
@@ -92,7 +91,8 @@ export const StockChartClient = ({ data, ticker }: Props) => {
   return (
     <Card sx={{ mt: 4 }}>
       <CardContent>
-        <Line data={chartData} options={options} />
+        Line Chart test
+        {/* <Line data={chartData} options={options} /> */}
       </CardContent>
     </Card>
   );

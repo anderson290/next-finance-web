@@ -1,7 +1,6 @@
 import { Avatar, Box, Typography, Breadcrumbs, Link } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import TickerContainer from "./TickerContainer";
 import { GithubUser } from "../../../utils/types/finance.type";
 import { useStocks } from "../../../context/StocksContext"; // Import the global StocksContext
 
@@ -12,7 +11,7 @@ async function getGithubUser(username: string): Promise<GithubUser | null> {
   if (!res.ok) return null;
   return res.json();
 }
-  const user = await getGithubUser("anderson290");
+const user = await getGithubUser("anderson290");
 
 export async function generateMetadata() {
   return {
@@ -21,10 +20,15 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Page({ params }: { params: { stock: string } }) {
-  const { stock } = params;
+interface PageProps {
+  params: {
+    stock: string;
+  };
+}
 
-  // Access the global stocks data from the context
+export default function Page() {
+
+  const stock = "AAPL"; 
   const { stocks, loading, error } = useStocks();
 
   if (loading) {
@@ -43,29 +47,17 @@ export default async function Page({ params }: { params: { stock: string } }) {
     return <Box>Stock not found</Box>;
   }
 
-  const res = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-    }/api/brapi?symbol=${encodeURIComponent(stock)}&detail=true`,
-    { cache: "no-store" }
-  );
-
-  if (!res.ok) {
-    return <div>Error! Could not find that stock!</div>;
-  }
-
-  const apiData = await res.json();
-
+  // Mocked data for now
   const ticker = {
     symbol: hasTicker.stock,
     name: hasTicker.name,
-    logoUrl: apiData.logoUrl || apiData.logourl || hasTicker.logo,
-    open: apiData.open,
-    close: apiData.close,
-    high: apiData.high,
-    low: apiData.low,
-    volume: apiData.volume,
-    recommendation: apiData.recommendation,
+    logoUrl: "https://via.placeholder.com/100",
+    open: 100,
+    close: 110,
+    high: 115,
+    low: 95,
+    volume: 1000000,
+    recommendation: "Buy",
   };
 
   return (
@@ -97,29 +89,13 @@ export default async function Page({ params }: { params: { stock: string } }) {
         mt={6}
         mb={2}
       >
-        <Avatar
-          src={user?.avatar_url}
-          alt={user?.name || "User"}
-          sx={{ width: 100, height: 100, mb: 2 }}
-        />
-        {user && (
-          <>
-            <Typography variant="h6" fontWeight={600}>
-              {user.name}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              align="center"
-              sx={{ maxWidth: 300, mb: 2 }}
-            >
-              {user.bio}
-            </Typography>
-          </>
-        )}
+        <Typography variant="h6" fontWeight={600}>
+          Stock: {ticker.name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Recommendation: {ticker.recommendation}
+        </Typography>
       </Box>
-
-      <TickerContainer ticker={ticker} />
     </Box>
   );
 }

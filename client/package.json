@@ -2,13 +2,13 @@
   "name": "next-finance-web",
   "version": "0.0.1",
   "private": true,
-"scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "next lint",
-  "cypress": "cypress open"
-},
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "cypress": "cypress open"
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.19.18",
-    "@types/react": "^19",
+    "@types/react": "^19.1.15",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
