@@ -2,13 +2,13 @@
   "name": "next-finance-web",
   "version": "0.0.1",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build -p tsconfig.build.json",
-    "start": "next start",
-    "lint": "next lint",
-    "cypress": "cypress open"
-  },
+"scripts": {
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
+  "cypress": "cypress open"
+},
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
