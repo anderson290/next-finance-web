@@ -119,15 +119,14 @@ export default function CandleChart({ ticker }: any) {
             <span>{ticker.name}</span>
           </Box>
         </Box>
-        <IconButton
+        {/* <IconButton
           aria-label="Open in dashboard"
           onClick={() => router.push(`/dashboard/${ticker.symbol}`)}
           size="small"
           sx={{ color: "#DDD" }}
         >
           <OpenInNewIcon />
-        </IconButton>
-        <Typography>Last 30 days</Typography>
+        </IconButton> */}
       </Box>
 
       <div

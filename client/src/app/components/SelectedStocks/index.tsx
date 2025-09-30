@@ -1,6 +1,9 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import CandleChart from "../CandleChart";
 import { useStocks } from "../../context/StocksContext";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 
 interface SelectedStocksProps {
   selectedStocks: string[];
@@ -11,7 +14,26 @@ export default function SelectedStocks({
   selectedStocks,
   onRemoveStock,
 }: SelectedStocksProps) {
-   const { stocks } = useStocks();
+  const { stocks } = useStocks();
+
+  if (selectedStocks.length === 0) {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        height="100%" 
+        minHeight="300px"
+        mt={4}
+      >
+        <SentimentDissatisfiedIcon color="disabled" sx={{ fontSize: 64, mb: 2 }} />
+        <Typography variant="h6" color="text.secondary">
+          No stocks
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -21,8 +43,6 @@ export default function SelectedStocks({
       width="100%"
     >
       {selectedStocks.map((symbol) => {
-
-        console.log(stocks)
         const ticker = stocks.find((t) => t.stock === symbol);
 
         // Handle undefined ticker
@@ -32,8 +52,7 @@ export default function SelectedStocks({
               <Typography color="error">
                 Ticker not found for symbol: {symbol}
               </Typography>
-              <Button
-                variant="contained"
+              <IconButton
                 color="error"
                 size="small"
                 onClick={() => onRemoveStock(symbol)}
@@ -44,8 +63,8 @@ export default function SelectedStocks({
                   zIndex: 10,
                 }}
               >
-                Remove
-              </Button>
+                <DeleteIcon />
+              </IconButton>
             </Box>
           );
         }
@@ -53,8 +72,7 @@ export default function SelectedStocks({
         return (
           <Box key={symbol} position="relative">
             <CandleChart ticker={ticker} />
-            <Button
-              variant="contained"
+            <IconButton
               color="error"
               size="small"
               onClick={() => onRemoveStock(symbol)}
@@ -65,8 +83,8 @@ export default function SelectedStocks({
                 zIndex: 10,
               }}
             >
-              Remove
-            </Button>
+              <DeleteIcon />
+            </IconButton>
           </Box>
         );
       })}

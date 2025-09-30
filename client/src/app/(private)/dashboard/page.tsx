@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Box, Button, Modal, Typography, Checkbox, TextField } from "@mui/material";
+import { Box, Button, Modal, Typography, Checkbox, TextField, IconButton } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import SelectedStocks from "../../components/SelectedStocks";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function Page() {
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
@@ -74,15 +75,13 @@ export default function Page() {
         <Typography variant="h4" fontWeight={600}>
           Dashboard
         </Typography>
-        <Button variant="contained" color="primary" onClick={handleOpenModal}>
-          + Add Stocks
-        </Button>
+        <IconButton color="primary" onClick={handleOpenModal}>
+          <AddIcon />
+        </IconButton>
       </Box>
 
-      {/* Selected Stocks with CandleCharts */}
       <SelectedStocks selectedStocks={selectedStocks} onRemoveStock={handleRemoveStock} />
 
-      {/* Modal for Multi-Select */}
       <Modal open={isModalOpen} onClose={handleCloseModal}>
         <Box
           sx={{
